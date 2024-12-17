@@ -1,7 +1,9 @@
 package com.github.groundbreakingmc.essentialswarps.listeners;
 
+import com.github.groundbreakingmc.essentialswarps.events.EssentialsWarpCreateEvent;
 import com.github.groundbreakingmc.essentialswarps.events.EssentialsWarpDeleteEvent;
 import com.google.common.collect.ImmutableSet;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -22,26 +24,37 @@ public final class CommandListener implements Listener {
     /**
      * A set of command that trigger warp deletion in Essentials.
      */
+    private final Set<String> setwarpCommands = ImmutableSet.of("/setwarp", "/esetwarp", "/createwarp", "/ecreatewarp");
+
+    /**
+     * A set of command that trigger warp deletion in Essentials.
+     */
     private final Set<String> delwarpCommands = ImmutableSet.of("/delwarp", "/edelwarp", "/remwarp", "/eremwarp", "/rmwarp", "/ermwarp");
 
     /**
-     * Handles the PlayerCommandPreprocessEvent to detect and trigger a warp delete event
-     * when a player executes a warp deletion command.
+     * Handles the PlayerCommandPreprocessEvent to detect and trigger warp-related events.
+     * <p>
+     * This method processes player commands to determine if they correspond to either warp creation
+     * or deletion, and triggers the appropriate custom event based on the command.
+     *
+     * @param event The PlayerCommandPreprocessEvent triggered by a player's command input.
      */
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onCommand(final PlayerCommandPreprocessEvent event) {
-        if (!event.getPlayer().hasPermission("essentials.delwarp")) {
-            return;
-        }
-
+        final Player player = event.getPlayer();
         final String buffer = event.getMessage();
         final String input = this.getCommand(buffer);
-        if (!this.delwarpCommands.contains(input)) {
+
+        if (player.hasPermission("essentials.setwarp") && this.setwarpCommands.contains(input)) {
+            final String warpName = this.getWarp(buffer);
+            new EssentialsWarpCreateEvent(event, warpName).callEvent();
             return;
         }
 
-        final String warpName = this.getWarp(buffer);
-        new EssentialsWarpDeleteEvent(event, warpName).callEvent();
+        if (player.hasPermission("essentials.delwarp") && this.delwarpCommands.contains(input)) {
+            final String warpName = this.getWarp(buffer);
+            new EssentialsWarpDeleteEvent(event, warpName).callEvent();
+        }
     }
 
     /**

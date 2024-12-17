@@ -1,3 +1,12 @@
+limits:
+  enable: true
+  reached-limit: "&4(!) &cSorry but you reached your warp creation limit! Yout can not create more then &4{limit} &cwarps!"
+  # If the limit is not specified for the player’s group, the limit will be taken by default.
+  default: 1
+  groups:
+    vip: 3
+    premium: 5
+
 server-owned: "&4(!) &cSorry but you can not delete server warps!"
 server-warps:
   - "pvp"
