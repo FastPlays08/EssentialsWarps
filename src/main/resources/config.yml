@@ -1,0 +1,5 @@
+error-message-server: "&4(!) &cSorry but you can not delete server warps!"
+server-warps:
+  - "pvp"
+
+error-message: "&4(!) &cSorry but you can not delete not your warp!"

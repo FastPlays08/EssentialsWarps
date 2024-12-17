@@ -1,0 +1,10 @@
+name: ${project.name}
+version: ${project.version}
+description: ${description}
+
+main: com.github.groundbreakingmc.essentialswarps.EssentialsWarps
+api-version: '1.16'
+depend: [ Essentials ]
+
+author: GroundbreakingMC
+website: ${url}
