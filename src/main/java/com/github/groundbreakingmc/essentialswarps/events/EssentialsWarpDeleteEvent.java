@@ -11,6 +11,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
+/**
+ * Event triggered when a player attempts to delete a warp using a command.
+ * <p>
+ * This custom event is fired to handle the deletion of a warp in the Essentials plugin.
+ * If this event is cancelled, the associated PlayerCommandPreprocessEvent (representing
+ * the input command) will also be cancelled, effectively preventing the execution of the
+ * warp deletion command.
+ * <p>
+ * Developers can use this event to add custom logic, such as validating the deletion,
+ * logging actions, or enforcing additional restrictions.
+ */
 public final class EssentialsWarpDeleteEvent extends PlayerEvent implements Cancellable {
 
     private final PlayerCommandPreprocessEvent commandPreprocessEvent;
