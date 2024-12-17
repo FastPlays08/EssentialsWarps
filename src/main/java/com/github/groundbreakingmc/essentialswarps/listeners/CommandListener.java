@@ -16,6 +16,10 @@ public final class CommandListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onCommand(final PlayerCommandPreprocessEvent event) {
+        if (!event.getPlayer().hasPermission("essentials.delwarp")) {
+            return;
+        }
+
         final String buffer = event.getMessage();
         final String input = this.getCommand(buffer);
         if (!this.delwarpCommands.contains(input)) {
