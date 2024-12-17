@@ -21,7 +21,7 @@ public class WarpProtector  implements Listener {
     @EventHandler
     public void onDelete(final EssentialsWarpDeleteEvent event) throws WarpNotFoundException {
         final Player sender = event.getPlayer();
-        if (sender.hasPermission("essentils.delwarp.own")
+        if (sender.hasPermission("essentils.delwarp.all")
                 || event.getLastOwner(essentials).equals(sender.getUniqueId())) {
             return;
         }
