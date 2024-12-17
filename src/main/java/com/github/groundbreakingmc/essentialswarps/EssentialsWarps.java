@@ -24,8 +24,8 @@ public final class EssentialsWarps extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.setupErrorMessage();
         this.setupEssentials();
+        this.setupErrorMessage();
     }
 
     public void setupEssentials() {
@@ -44,7 +44,8 @@ public final class EssentialsWarps extends JavaPlugin {
     public void setupErrorMessage() {
         final FileConfiguration config = new ConfigLoader(this).get();
         this.serverWarps = ImmutableSet.copyOf(config.getStringList("server-warps"));
-        this.errorMessageServer = new Colorizer().colorize(config.getString("error-message-server"));
-        this.errorMessage = new Colorizer().colorize(config.getString("error-message"));
+        final Colorizer colorizer = new Colorizer();
+        this.errorMessageServer = colorizer.colorize(config.getString("error-message-server"));
+        this.errorMessage = colorizer.colorize(config.getString("error-message"));
     }
 }
