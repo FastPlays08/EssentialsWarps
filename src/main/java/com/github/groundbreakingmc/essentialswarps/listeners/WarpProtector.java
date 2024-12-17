@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class WarpProtector  implements Listener {
+public final class WarpProtector implements Listener {
 
     private final EssentialsWarps plugin;
     private final Essentials essentials;
@@ -19,10 +19,15 @@ public class WarpProtector  implements Listener {
     }
 
     @EventHandler
-    public void onDelete(final EssentialsWarpDeleteEvent event) throws WarpNotFoundException {
+    public void onDelete(final EssentialsWarpDeleteEvent event) {
         final Player sender = event.getPlayer();
-        if (sender.hasPermission("essentils.delwarp.all")
-                || event.getLastOwner(essentials).equals(sender.getUniqueId())) {
+
+        try {
+            if (sender.hasPermission("essentils.delwarp.all")
+                    || event.getLastOwner(essentials).equals(sender.getUniqueId())) {
+                return;
+            }
+        } catch (final WarpNotFoundException ignored) {
             return;
         }
 
