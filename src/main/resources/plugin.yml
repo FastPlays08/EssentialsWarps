@@ -8,3 +8,9 @@ depend: [ Essentials ]
 
 author: GroundbreakingMC
 website: ${url}
+
+permissions:
+  essentials.delwarp.all:
+    default: false
+  essentials.delwarp.server:
+    default: false
