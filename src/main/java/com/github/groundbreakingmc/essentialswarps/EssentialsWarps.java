@@ -45,7 +45,7 @@ public final class EssentialsWarps extends JavaPlugin {
         final FileConfiguration config = new ConfigLoader(this).get();
         this.serverWarps = ImmutableSet.copyOf(config.getStringList("server-warps"));
         final Colorizer colorizer = new Colorizer();
-        this.errorMessageServer = colorizer.colorize(config.getString("error-message-server"));
-        this.errorMessage = colorizer.colorize(config.getString("error-message"));
+        this.errorMessageServer = colorizer.colorize(config.getString("server-owned"));
+        this.errorMessage = colorizer.colorize(config.getString("not-yours"));
     }
 }
