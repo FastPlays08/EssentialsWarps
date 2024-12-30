@@ -6,6 +6,7 @@ import com.github.groundbreakingmc.essentialswarps.EssentialsWarps;
 import com.github.groundbreakingmc.essentialswarps.events.EssentialsWarpDeleteEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 /**
@@ -38,7 +39,7 @@ public final class WarpProtector implements Listener {
      *
      * @param event The EssentialsWarpDeleteEvent triggered when a warp deletion is attempted.
      * */
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onDelete(final EssentialsWarpDeleteEvent event) {
         final Player sender = event.getPlayer();
 

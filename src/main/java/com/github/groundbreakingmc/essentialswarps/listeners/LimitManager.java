@@ -53,7 +53,7 @@ public final class LimitManager implements Listener {
      *
      * @param event The EssentialsWarpCreateEvent triggered when a player attempts to create a warp.
      */
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onCreate(final EssentialsWarpCreateEvent event) {
         final Player sender = event.getPlayer();
         if (sender.hasPermission("essentials.setwarp.bypasslimit")) {
