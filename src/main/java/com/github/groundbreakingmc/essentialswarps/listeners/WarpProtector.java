@@ -47,7 +47,7 @@ public final class WarpProtector implements Listener {
         }
 
         try {
-            if (event.getLastOwner(essentials).equals(sender.getUniqueId())) {
+            if (event.getLastOwner(this.essentials).equals(sender.getUniqueId())) {
                 return;
             }
         } catch (final WarpNotFoundException ignored) {
