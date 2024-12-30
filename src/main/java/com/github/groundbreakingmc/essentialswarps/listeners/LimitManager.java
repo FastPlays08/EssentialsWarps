@@ -6,8 +6,6 @@ import com.github.groundbreakingmc.essentialswarps.EssentialsWarps;
 import com.github.groundbreakingmc.essentialswarps.events.EssentialsWarpCreateEvent;
 import com.github.groundbreakingmc.essentialswarps.utils.colorizer.Colorizer;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.ess3.api.InvalidWorldException;
-import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

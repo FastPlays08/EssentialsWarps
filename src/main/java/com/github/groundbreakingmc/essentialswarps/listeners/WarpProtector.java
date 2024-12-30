@@ -6,7 +6,6 @@ import com.github.groundbreakingmc.essentialswarps.EssentialsWarps;
 import com.github.groundbreakingmc.essentialswarps.events.EssentialsWarpDeleteEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 /**

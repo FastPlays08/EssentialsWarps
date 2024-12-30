@@ -1,15 +1,11 @@
 package com.github.groundbreakingmc.essentialswarps.events;
 
-import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.commands.WarpNotFoundException;
 import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
 
 public final class EssentialsWarpCreateEvent extends PlayerEvent implements Cancellable {
 
