@@ -42,9 +42,12 @@ public final class WarpProtector implements Listener {
     public void onDelete(final EssentialsWarpDeleteEvent event) {
         final Player sender = event.getPlayer();
 
+        if (sender.hasPermission("essentials.delwarp.all")) {
+            return;
+        }
+
         try {
-            if (sender.hasPermission("essentials.delwarp.all")
-                    || event.getLastOwner(essentials).equals(sender.getUniqueId())) {
+            if (event.getLastOwner(essentials).equals(sender.getUniqueId())) {
                 return;
             }
         } catch (final WarpNotFoundException ignored) {
