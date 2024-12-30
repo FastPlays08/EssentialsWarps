@@ -8,9 +8,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
+import java.util.function.BiFunction;
 
 /**
  * A listener for handling player commands related to warp deletion.
@@ -37,24 +39,18 @@ public final class CommandListener implements Listener {
      * This method processes player commands to determine if they correspond to either warp creation
      * or deletion, and triggers the appropriate custom event based on the command.
      *
-     * @param event The PlayerCommandPreprocessEvent triggered by a player's command input.
+     * @param commandEvent The PlayerCommandPreprocessEvent triggered by a player's command input.
      */
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onCommand(final PlayerCommandPreprocessEvent event) {
-        final Player player = event.getPlayer();
-        final String buffer = event.getMessage();
+    public void onCommand(final PlayerCommandPreprocessEvent commandEvent) {
+        final String buffer = commandEvent.getMessage();
         final String input = this.getCommand(buffer);
 
-        if (player.hasPermission("essentials.setwarp") && this.setwarpCommands.contains(input)) {
-            final String warpName = this.getWarp(buffer);
-            new EssentialsWarpCreateEvent(event, warpName).callEvent();
+        if (this.tryCallCreateEvent(commandEvent, input, buffer)) {
             return;
         }
 
-        if (player.hasPermission("essentials.delwarp") && this.delwarpCommands.contains(input)) {
-            final String warpName = this.getWarp(buffer);
-            new EssentialsWarpDeleteEvent(event, warpName).callEvent();
-        }
+        this.tryCallDeleteEvent(commandEvent, input, buffer);
     }
 
     /**
@@ -87,5 +83,83 @@ public final class CommandListener implements Listener {
         }
 
         return buffer.substring(spaceIndex + 1, spaceLastIndex);
+    }
+
+    /**
+     * Attempts to call a warp deletion event based on the player's command.
+     *
+     * @param commandEvent   The player's command preprocess event.
+     * @param input          The separated command input by the player (e.g., "/setwarp" from "/setwarp example").
+     * @param buffer         Full command (with args) entered by a player.
+     * @return true if the event was successfully triggered or processing stopped, false otherwise.
+     */
+    private boolean tryCallCreateEvent(final PlayerCommandPreprocessEvent commandEvent,
+                                       final String input,
+                                       final String buffer) {
+        return this.tryCallEvent(
+                commandEvent,
+                input,
+                "essentials.setwarp",
+                this.setwarpCommands,
+                buffer,
+                EssentialsWarpCreateEvent::new
+        );
+    }
+
+    /**
+     * Attempts to call a warp deletion event based on the player's command.
+     *
+     * @param commandEvent   The player's command preprocess event.
+     * @param input          The separated command input by the player (e.g., "/delwarp" from "/delwarp example").
+     * @param buffer         Full command (with args) entered by a player.
+     * @return true if the event was successfully triggered or processing stopped, false otherwise.
+     */
+    private boolean tryCallDeleteEvent(final PlayerCommandPreprocessEvent commandEvent,
+                                       final String input,
+                                       final String buffer) {
+        return this.tryCallEvent(
+                commandEvent,
+                input,
+                "essentials.delwarp",
+                this.delwarpCommands,
+                buffer,
+                EssentialsWarpDeleteEvent::new
+        );
+    }
+
+    /**
+     * Attempts to call an event associated with a player's command.
+     *
+     * @param commandEvent   The player's command preprocess event.
+     * @param input          The separated command input by the player (e.g., "/delwarp" from "/delwarp example").
+     * @param usePermission  The required permission to use command.
+     * @param commands       The set of allowed commands.
+     * @param buffer         Full command (with args) entered by a player.
+     * @param function       A function to create the event, given the command event and warp name.
+     * @return true if the command was handled (event triggered or processing stopped), false otherwise.
+     */
+    private boolean tryCallEvent(final PlayerCommandPreprocessEvent commandEvent,
+                                 final String input,
+                                 final String usePermission,
+                                 final Set<String> commands,
+                                 final String buffer,
+                                 final BiFunction<PlayerCommandPreprocessEvent, String, PlayerEvent> function) {
+        if (!commands.contains(input)) {
+            return false;
+        }
+
+        final Player player = commandEvent.getPlayer();
+        if (!player.hasPermission(usePermission)) {
+            return true;
+        }
+
+        final String warpName = this.getWarp(buffer);
+        if (warpName == null) {
+            return true;
+        }
+
+        final PlayerEvent event = function.apply(commandEvent, warpName);
+        event.callEvent();
+        return true;
     }
 }
