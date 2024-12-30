@@ -43,7 +43,7 @@ public final class WarpProtector implements Listener {
         final Player sender = event.getPlayer();
 
         try {
-            if (sender.hasPermission("essentils.delwarp.all")
+            if (sender.hasPermission("essentials.delwarp.all")
                     || event.getLastOwner(essentials).equals(sender.getUniqueId())) {
                 return;
             }
