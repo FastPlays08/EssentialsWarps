@@ -36,7 +36,7 @@ public final class ServerWarpProtector implements Listener {
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onDelete(final EssentialsWarpDeleteEvent event) {
         final Player sender = event.getPlayer();
-        if (sender.hasPermission("essentials.delwarp.server")
+        if (sender.hasPermission("essentialsWarps.delwarp.server")
                 || !this.plugin.getServerWarps().contains(event.getWarpName())) {
             return;
         }

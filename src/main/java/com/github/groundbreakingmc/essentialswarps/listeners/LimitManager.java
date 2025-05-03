@@ -54,7 +54,7 @@ public final class LimitManager implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onCreate(final EssentialsWarpCreateEvent event) {
         final Player sender = event.getPlayer();
-        if (sender.hasPermission("essentials.setwarp.bypasslimit")) {
+        if (sender.hasPermission("essentialsWarps.setwarp.bypasslimit")) {
             return;
         }
 
