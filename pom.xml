@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>EssentialsWarps</name>
-    <description>Allow players to delete only their own warps.</description>
+    <description>More Warp related features for EssentialsX</description>
     <url>https://github.com/groundbreakingmc/EssentialsWarps/</url>
 
     <properties>
