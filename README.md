@@ -11,7 +11,7 @@ EssentialsWarps is a plugin for EssentialsX that allows server owners to manage 
 ## Installation
 
 1. Download the EssentialsWarps plugin from the releases section.
-2. Place the `EssentialsWarps.jar` file into the `plugins` folder of your Minecraft server.
+2. Place the `EssentialsWarps.jar` file into the `plugins` folder of your Minecraft server. (You must have [EssentialsX](https://essentialsx.net/) installed for this plugin to function)
 3. Restart the server.
 4. Configure the plugin settings in the `config.yml` file located in the `EssentialsWarps` folder.
 
