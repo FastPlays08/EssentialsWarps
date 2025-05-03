@@ -10,9 +10,9 @@ author: GroundbreakingMC
 website: ${url}
 
 permissions:
-  essentials.delwarp.all:
+  essentialsWarps.delwarp.all:
     default: false
-  essentials.delwarp.server:
+  essentialsWarps.delwarp.server:
     default: false
-  essentials.setwarp.bypasslimit:
+  essentialsWarps.setwarp.bypasslimit:
     default: false
